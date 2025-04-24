@@ -9,6 +9,15 @@ function App() {
 
   //let counter=15
   const addvalue=()=>{
+    // set counter use callback feature by which we can fetch 
+    // the pervious value of the counter and do the update
+    //  when it came through callback it with the updated value
+    // prathamCounter(prevCounter=>prevCounter+1) 
+    // prathamCounter(prevCounter=>prevCounter+1)
+    // prathamCounter(prevCounter=>prevCounter+1) 
+    // prathamCounter(prevCounter=>prevCounter+1)
+
+
     if(counter<20){
       // counter=counter+1;
       prathamCounter(counter+1)
