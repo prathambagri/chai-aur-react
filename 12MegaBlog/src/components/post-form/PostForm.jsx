@@ -18,7 +18,7 @@ export default function PostForm({post}) {
     const navigate=useNavigate()
     const userData = useSelector((state) => state.auth.userData)
     const submit = async (data) => {
-        if (post) {
+        if (post && post.$id) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
             if (file) {
@@ -27,13 +27,18 @@ export default function PostForm({post}) {
 
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined,
+                featuredImage: file ? file.$id : post.featuredImage,
             });
 
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
             }
         } else {
+             if (!userData || !userData.$id) {
+                    alert("You must be logged in to create a post!");
+                    return;
+                }
+                
             const file = await appwriteService.uploadFile(data.image[0]);
 
             if (file) {
